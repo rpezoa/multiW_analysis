@@ -44,8 +44,7 @@ def distribution_weights(dict_labels, dict_weights):
         l.append({"data":key.split("_")[-1],"#background":N_b, "#signal":N_s,
             "% b":N_p_b, "% s":N_p_s,  "total": N_total, "w_s": N_w_s, "w_b":N_w_b, "%w_s":(N_w_s/N_w_t)*100,
             "%w_b":(N_w_b/N_w_t)*100 ,"w_total": N_w_t, 
-            "SIGNIF_WEIGHT": significance_with_weight(dict_labels[key],dict_weights[key]),
-            "SIGNIF": significance(N_s,N_b), "SIGNIF_TRUE": signif_true})
+            "SIGNIF_WEIGHT": significance_with_weight(dict_labels[key],dict_weights[key]), "SIGNIF_TRUE": signif_true})
 
     
     df_distro = pd.DataFrame(l)
