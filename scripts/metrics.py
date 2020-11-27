@@ -23,23 +23,23 @@ def significance_with_weight(y_pred,weights):
     return signif
 
 def significance_true_values(y_pred, y_true, weights):
-    mask_signal_pred = y_pred == 1
-    mask_background_pred = y_pred == 0
-
-    mask_signal_true = y_true == 1
-    mask_background_true = y_true == 0
-
-    mask_signal_weight = weights[mask_signal_true]
-    mask_background_weight = weights[mask_background_true]
-
 
     # TRUE POSITIVE and FALSE POSITIVE
-    tp = (mask_signal_pred * mask_signal_true ) == 1 
-    fp = (mask_background_pred * mask_background_true ) == 1
+    tp_mask = (y_pred == 1)   & (y_true == 1)
 
-    s = (tp*mask_signal_weight).sum()
-    b = (fp*mask_background_weight).sum()
-    print("::::::::::s",s)
+    fp_mask = (y_pred == 0) &  (y_true == 0 )
+
+    tp = y_pred[tp_mask]
+    fp = y_pred[fp_mask]
+
+    weights_tp = weights[tp_mask]
+    weights_fp = weights[fp_mask]
+
+
+    #print(tp.shape, weights_tp.shape, fp.shape, weights_fp.shape)
+    s = weights_tp.sum()
+    b = weights_fp.sum()
+    print("::: TP signal",s)
     print("::::::::::b", b)
 
     signif = sqrt(2 * ((s + b) * log(1 + (s/b)) - s ))
@@ -57,11 +57,9 @@ def pred_with_threshold(y_pred, weights, y_true):
         
         #sig = significance(s,b)
         #print("signal: ", s, "background:", b, "S:::::", sig)
-        sig = significance_with_weight(y_new,weights)
-        sig2 = significance_true_values(y_new, y_true, weights)
+        #sig = significance_with_weight(y_new,weights)
+        sig = significance_true_values(y_new, y_true, weights)
         print("Significance :::::",sig )
-        print("SIGNIFICANCE TRUE VALUES", sig2)
-        
         
         if sig >= big_sig:
             print("yes",sig)

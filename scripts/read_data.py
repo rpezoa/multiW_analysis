@@ -51,11 +51,12 @@ def distribution_weights(dict_labels, dict_weights):
     df_distro = pd.DataFrame(l)
     return df_distro
 
-def filtering(df,X,y,name_colum_to_filter):
-    print("Filtering per column:", name_colum_to_filter)
+def filtering(df,X,y,weights, name_colum_to_filter):
+    print("Category:", name_colum_to_filter)
     mask = df[name_colum_to_filter] == 1
     X = X[mask]
     y = y[mask]
-    return X,y
+    weights = weights[mask]
+    return X,y, weights
 
 

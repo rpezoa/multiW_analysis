@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt
 import numpy as np
+import os
 
 def plot_scores(y_pred_score, y_test, y_pred_score_train, y_train, show=False):
     mask_sig = y_test == 1
@@ -41,7 +42,8 @@ def plot_scores_v2(y_pred_score, mask_sig,mask_back,y_pred_score_train, mask_sig
 #https://dbaumgartel.wordpress.com/2014/03/14/machine-learning-examples-scikit-learn-versus-tmva-cern-root/
 
 
-
+    if not os.path.exists('../output/'):
+            os.makedirs('../output/')
     plt.figure()
     tn = met_test["cm"][1,0]
     fp = met_test["cm"][0,1]

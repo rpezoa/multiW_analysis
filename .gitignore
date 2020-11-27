@@ -1,3 +1,6 @@
 .DS_Store
 __pycache__/
 notebooks/.ipynb_checkpoints/
+histograms/
+processed_data/
+output/
